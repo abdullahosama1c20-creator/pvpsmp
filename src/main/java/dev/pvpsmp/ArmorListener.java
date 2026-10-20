@@ -72,11 +72,11 @@ public final class ArmorListener implements Listener {
         else { g = EquipmentSlotGroup.FEET; slot = EquipmentSlot.FEET; piece = "boots"; armor = 3; }
 
         // Adding custom modifiers replaces the item's default ones, so re-add the netherite baseline + bonuses.
-        m.addAttributeModifier(Attribute.ARMOR, new AttributeModifier(new NamespacedKey(plugin, "celestial_armor"),
+        m.addAttributeModifier(Attribute.ARMOR, new AttributeModifier(new NamespacedKey(plugin, "celestial_armor_" + piece),
                 armor + c.getDouble("armor.bonus-armor", 1.0), AttributeModifier.Operation.ADD_NUMBER, g));
-        m.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(new NamespacedKey(plugin, "celestial_toughness"),
+        m.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, new AttributeModifier(new NamespacedKey(plugin, "celestial_toughness_" + piece),
                 3.0 + c.getDouble("armor.bonus-toughness", 1.0), AttributeModifier.Operation.ADD_NUMBER, g));
-        m.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, new AttributeModifier(new NamespacedKey(plugin, "celestial_kb"),
+        m.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, new AttributeModifier(new NamespacedKey(plugin, "celestial_kb_" + piece),
                 c.getDouble("armor.knockback-resistance", 1.0), AttributeModifier.Operation.ADD_NUMBER, g));
 
         // "Always gives protection": guarantee a Protection enchant (never lowers an existing one)
