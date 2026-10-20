@@ -1,0 +1,26 @@
+name: PvPSMP
+version: 1.0.0
+main: dev.pvpsmp.PvPSMPPlugin
+api-version: '1.21'
+description: Lifesteal + Strength SMP hybrid with weapon abilities, custom loot, strict PvP rules.
+commands:
+  pvpsmp:
+    description: Admin command
+    usage: /pvpsmp <give|ability|reload>
+    permission: pvpsmp.admin
+  leaderboard:
+    description: Top player kills
+    aliases: [lb, kills]
+  ability:
+    description: Show your ability and cooldowns
+  claim:
+    description: Claim and manage chunks (anti-griefing)
+    usage: /claim [here|remove|trust <player>|untrust <player>|info]
+  protection:
+    description: Check or end new-player protection
+permissions:
+  pvpsmp.admin:
+    default: op
+  pvpsmp.bypass:
+    description: Ignore claims
+    default: op
