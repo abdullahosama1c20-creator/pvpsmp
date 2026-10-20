@@ -64,10 +64,11 @@ public final class Items {
         return it;
     }
 
-    private ItemStack potion(Material mat, String id, String name, NamedTextColor c, int rgb, String... lore) {
+    private ItemStack potion(Material mat, String id, String name, NamedTextColor c, int rgb, String model, String... lore) {
         ItemStack it = make(mat, id, name, c, false, lore);
         PotionMeta pm = (PotionMeta) it.getItemMeta();
         pm.setColor(Color.fromRGB(rgb));
+        pm.setItemModel(new NamespacedKey("pvpsmp", model));
         pm.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         it.setItemMeta(pm);
         return it;
@@ -91,14 +92,14 @@ public final class Items {
     }
 
     public ItemStack opPotion() {
-        return potion(Material.POTION, OP_POTION, "OP Potion", NamedTextColor.LIGHT_PURPLE, 0x5b2a86,
+        return potion(Material.POTION, OP_POTION, "OP Potion", NamedTextColor.LIGHT_PURPLE, 0x5b2a86, "op_potion",
                 "Does nothing... yet.");
     }
 
     public ItemStack shieldBreaker(int level, int seconds, boolean splash) {
         String n = (splash ? "Splash " : "") + "Shield Breaker Potion" + (level >= 2 ? " II" : " I");
         ItemStack it = potion(splash ? Material.SPLASH_POTION : Material.POTION, SHIELD_BREAKER, n,
-                NamedTextColor.DARK_PURPLE, 0x9d4dff,
+                NamedTextColor.DARK_PURPLE, 0x9d4dff, splash ? "shield_breaker_splash" : "shield_breaker",
                 "All your hits can disable shields.",
                 "Counts as " + level + " axe hit" + (level > 1 ? "s" : "") + " against shields.",
                 "Duration: " + (seconds / 60) + ":" + String.format("%02d", seconds % 60));
@@ -110,7 +111,7 @@ public final class Items {
     }
 
     public ItemStack strengthVial() {
-        return potion(Material.POTION, STRENGTH_VIAL, "Strength Vial", NamedTextColor.RED, 0xcc2222,
+        return potion(Material.POTION, STRENGTH_VIAL, "Strength Vial", NamedTextColor.RED, 0xcc2222, "strength_vial",
                 "Drink to gain +1 Strength level.");
     }
 

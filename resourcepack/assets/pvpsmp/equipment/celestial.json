@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "pvpsmp:celestial"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "pvpsmp:celestial"
+      }
+    ]
+  }
+}

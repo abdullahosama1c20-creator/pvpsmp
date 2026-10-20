@@ -3,6 +3,7 @@ package dev.pvpsmp;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -12,7 +13,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.inventory.PrepareSmithingEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.meta.components.EquippableComponent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.Keyed;
@@ -60,11 +63,13 @@ public final class ArmorListener implements Listener {
         String n = base.getType().name();
 
         EquipmentSlotGroup g;
+        EquipmentSlot slot;
+        String piece;
         double armor;
-        if (n.endsWith("_HELMET")) { g = EquipmentSlotGroup.HEAD; armor = 3; }
-        else if (n.endsWith("_CHESTPLATE")) { g = EquipmentSlotGroup.CHEST; armor = 8; }
-        else if (n.endsWith("_LEGGINGS")) { g = EquipmentSlotGroup.LEGS; armor = 6; }
-        else { g = EquipmentSlotGroup.FEET; armor = 3; }
+        if (n.endsWith("_HELMET")) { g = EquipmentSlotGroup.HEAD; slot = EquipmentSlot.HEAD; piece = "helmet"; armor = 3; }
+        else if (n.endsWith("_CHESTPLATE")) { g = EquipmentSlotGroup.CHEST; slot = EquipmentSlot.CHEST; piece = "chestplate"; armor = 8; }
+        else if (n.endsWith("_LEGGINGS")) { g = EquipmentSlotGroup.LEGS; slot = EquipmentSlot.LEGS; piece = "leggings"; armor = 6; }
+        else { g = EquipmentSlotGroup.FEET; slot = EquipmentSlot.FEET; piece = "boots"; armor = 3; }
 
         // Adding custom modifiers replaces the item's default ones, so re-add the netherite baseline + bonuses.
         m.addAttributeModifier(Attribute.ARMOR, new AttributeModifier(new NamespacedKey(plugin, "celestial_armor"),
@@ -83,6 +88,13 @@ public final class ArmorListener implements Listener {
         lore.add(Txt.c("100% Knockback Resistance", NamedTextColor.DARK_AQUA));
         m.lore(lore);
         m.getPersistentDataContainer().set(items.ID, PersistentDataType.STRING, Items.CELESTIAL_ARMOR);
+        // Custom textures from the resource pack: inventory icon + the model worn on the body
+        m.setItemModel(new NamespacedKey("pvpsmp", "celestial_" + piece));
+        EquippableComponent eq = m.getEquippable();
+        eq.setSlot(slot);
+        eq.setModel(new NamespacedKey("pvpsmp", "celestial"));
+        eq.setEquipSound(Sound.ITEM_ARMOR_EQUIP_NETHERITE);
+        m.setEquippable(eq);
         out.setItemMeta(m);
         return out;
     }

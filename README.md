@@ -66,3 +66,8 @@ break/build/open chests there. Explosions never damage claims, raidable or not.
 Set `resource-pack.url` in config.yml (GitHub: `https://github.com/<user>/<repo>/releases/latest/download/PvPSMP-ResourcePack.zip`,
 repo must be PUBLIC). Players are prompted/downloaded on join. pack.mcmeta uses only min_format/max_format (Minecraft 1.21.9+/26.x).
 Important: pack.mcmeta and the `assets` folder must be at the ROOT of the zip, not inside an extra folder.
+
+## More textures
+Resource pack now also textures: Strength Vial, OP Potion, Shield Breaker (normal + splash), and Celestified armor
+(inventory icons + the model worn on the body: assets/pvpsmp/equipment/celestial.json). Armor trims may not show on the custom model.
+After updating the pack, copy the new sha1 from the GitHub release notes into `resource-pack.sha1` so clients re-download it.
